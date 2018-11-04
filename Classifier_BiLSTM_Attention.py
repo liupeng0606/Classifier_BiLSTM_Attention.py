@@ -12,7 +12,7 @@ from keras import backend as K
 from keras.engine.topology import Layer
 from keras import initializers, regularizers, constraints
 
-＃－－－－－－－－－－－－－－－－－－－－－－－Attention_layer－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
 class Attention_layer(Layer):
 
     def __init__(self,
@@ -81,16 +81,12 @@ class Attention_layer(Layer):
 
     def compute_output_shape(self, input_shape):
         return (input_shape[0], input_shape[-1])
-＃－－－－－－－－－－－－－－－－－－－－－－－End Attention_layer－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 
-SENTENCE_NUM = 25000
-MAX_SEQUENCE_LENGTH = 1000
-MAX_NB_WORDS = 20000
+
+MAX_SEQUENCE_LENGTH = 80
 EMBEDDING_DIM = 100
-VALIDATION_SPLIT = 0.2
-
-
+VALIDATION_SPLIT = 0.3
 
 
 def clean_str(string):
@@ -103,15 +99,15 @@ def clean_str(string):
     string = re.sub(r"\"", "", string)
     return string.strip().lower()
 
-data_train = pd.read_csv('labeledTrainData.tsv', sep='\t')
+data_train = pd.read_csv('label_data.tsv', sep='\t')
 print data_train.shape
 texts = []
 labels = []
 
-for idx in range(data_train.review.shape[0]):
-    text = BeautifulSoup(data_train.review[idx], "lxml")
+for idx in range(data_train.BODY.shape[0]):
+    text = BeautifulSoup(data_train.BODY[idx], "lxml")
     texts.append(clean_str(text.get_text().encode('ascii','ignore')))
-    labels.append(data_train.sentiment[idx])
+    labels.append(data_train.LABEL[idx])
 
 embeddings_index = {}
 f = open('glove.6B.100d.txt')
@@ -129,7 +125,7 @@ print('Shape of data tensor:', len(texts))
 print('Shape of label tensor:', len(labels))
 
 
-tokenizer = Tokenizer(nb_words=MAX_NB_WORDS)
+tokenizer = Tokenizer(nb_words=None)
 tokenizer.fit_on_texts(texts)
 sequences = tokenizer.texts_to_sequences(texts)
 
@@ -194,4 +190,4 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 model.summary()
 model.fit(x_train, y_train, validation_data=(x_val, y_val),
-nb_epoch=10, batch_size=50)
+nb_epoch=20, batch_size=4)
