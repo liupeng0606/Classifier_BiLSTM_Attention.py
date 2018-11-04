@@ -12,7 +12,7 @@ from keras import backend as K
 from keras.engine.topology import Layer
 from keras import initializers, regularizers, constraints
 
-
+＃－－－－－－－－－－－－－－－－－－－－－－－Attention_layer－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 class Attention_layer(Layer):
 
     def __init__(self,
@@ -81,7 +81,7 @@ class Attention_layer(Layer):
 
     def compute_output_shape(self, input_shape):
         return (input_shape[0], input_shape[-1])
-
+＃－－－－－－－－－－－－－－－－－－－－－－－End Attention_layer－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
 
 
 SENTENCE_NUM = 25000
