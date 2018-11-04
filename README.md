@@ -2,7 +2,7 @@
 
 1. 该task的模型本质是一个三分类问题．使用脚本ReadQuesstResult.py从input_questions.xml中提取出文本和文本的标签，保存为label_data.tsv文件,该文件的shape为(166,3)，数据量很小,３列的标签分别为(QID,LABEL,BODY)，QID是问题的标识,LABLE是问题的标签,BODY是文本的内容
 2. 画出文本长度的直方图，以便于统一文本的长度，从直方图可以得到句子长度在８０词一下，设置MAX_SEQUENCE_LENGTH = 80,如下图：
- ![image]https://github.com/liupeng0606/Classifier_BiLSTM_Attention.py/blob/master/t.png
+ ![image](https://github.com/liupeng0606/Classifier_BiLSTM_Attention.py/blob/master/t.png)
 3. 把文本的70％用于训练，剩下的测试，参数设置为VALIDATION_SPLIT = 0.3
 
 ## 以下是log信息，彭*学长说，数据太少，没必要调参数了<br>
